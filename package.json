@@ -1,0 +1,28 @@
+{
+  "name": "request-body-mover",
+  "version": "1.0.0",
+  "description": "A callback for `request` that will: 1) Check status codes and call your callback with an error if necessary and 2) pass the body to your callback if everything is OK.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jimkang/request-body-mover.git"
+  },
+  "keywords": [
+    "request",
+    "http"
+  ],
+  "author": "Jim Kang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jimkang/request-body-mover/issues"
+  },
+  "homepage": "https://github.com/jimkang/request-body-mover",
+  "devDependencies": {
+    "assert-no-error": "^1.0.0",
+    "tape": "^4.6.0"
+  },
+  "dependencies": {}
+}
