@@ -1,6 +1,6 @@
 {
   "name": "request-body-mover",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A callback for `request` that will: 1) Check status codes and call your callback with an error if necessary and 2) pass the body to your callback if everything is OK.",
   "main": "index.js",
   "scripts": {
