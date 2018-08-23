@@ -1,4 +1,12 @@
-function RequestBodyMover({ url, responseIsOK }, done) {
+function RequestBodyMover(param1, param2) {
+  var done;
+  if (typeof param1 === 'object') {
+    var { url, responseIsOK } = param1;
+    done = param2;
+  } else {
+    done = param1;
+  }
+
   if (!responseIsOK) {
     responseIsOK = defaultResponseIsOK;
   }
@@ -16,6 +24,8 @@ function RequestBodyMover({ url, responseIsOK }, done) {
       }
       if (url) {
         message += ` from ${url} `;
+      } else if (res.url) {
+        message += ` from ${res.url} `;
       }
       message += '.';
       done(new Error(message));

@@ -5,7 +5,7 @@ var BodyMover = require('../index');
 var testCases = [
   {
     name: 'Error in request',
-    opts: {},
+    opts: null,
     reqCallbackParams: [new Error('Network something oh no!')],
     expected: {
       error: {
@@ -15,7 +15,7 @@ var testCases = [
   },
   {
     name: 'Failure status code',
-    opts: {},
+    opts: null,
     reqCallbackParams: [
       null,
       {
@@ -30,8 +30,11 @@ var testCases = [
   },
   {
     name: 'url cited in error',
-    opts: { url: 'https://smidgeo.com/api/snacc' },
-    reqCallbackParams: [null, { statusCode: 401 }],
+    opts: null,
+    reqCallbackParams: [
+      null,
+      { statusCode: 401, url: 'https://smidgeo.com/api/snacc' }
+    ],
     expected: {
       error: {
         message: 'Received status code 401 from https://smidgeo.com/api/snacc .'
@@ -70,7 +73,7 @@ var testCases = [
   },
   {
     name: 'Successful request',
-    opts: {},
+    opts: null,
     reqCallbackParams: [null, { statusCode: 200 }, 'aw yea'],
     expected: {
       body: 'aw yea'
@@ -84,10 +87,13 @@ function runCase(testCase) {
   test(testCase.name, runTest);
 
   function runTest(t) {
-    BodyMover(testCase.opts, checkResult).apply(
-      null,
-      testCase.reqCallbackParams
-    );
+    var ctorParams = [];
+    if (testCase.opts) {
+      ctorParams.push(testCase.opts);
+    }
+    ctorParams.push(checkResult);
+
+    BodyMover.apply(null, ctorParams).apply(null, testCase.reqCallbackParams);
 
     function checkResult(error, body) {
       if (testCase.expected.error) {

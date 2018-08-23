@@ -47,14 +47,18 @@ There's a lot of situations in which you call request, then have to do a little 
         url: 'https://some.api/thing',
         json: true
       };
-      request(reqOpts, bodyMover({ url: 'https://some.api/thing' }, done));
+      request(reqOpts, bodyMover(done));
     }
 
 The two code snippets behave the same.
 
-You can also specify your own response checker, if you don't want it to just look out for non-200 status codes. e.g.:
+You can also specify some opts as the first argument and the callback as the second argument if you want to provide some custom behavior. e.g. Your own response checker, if you don't want it to just look out for non-200 status codes. e.g.:
 
-    bodyMover({ url: 'https://some.api/thing', responseIsOK(res) { return res.statusCode === 201; });
+    bodyMover({ responseIsOK(res) { return res.statusCode === 201; }, done);
+
+You can specify the url that appears in the response-related error messages as well (this is useful for `request`-likes that happen to not provide a `url` in the response):
+
+    bodyMover({ url: 'https://some.api/thing', responseIsOK(res) { return res.statusCode === 201; }, done);
 
 Tests
 -----
